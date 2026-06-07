@@ -21,15 +21,10 @@ public class JWTService {
     public String generarToken(String correo){
 
         return Jwts.builder()
-                .setSubject(correo)
-                .setIssuedAt(new Date())
-                .setExpiration(
-                        new Date(System.currentTimeMillis()
-                                + 86400000))
-                .signWith(
-                        Keys.hmacShaKeyFor(
-                                SECRET.getBytes()),
-                        SignatureAlgorithm.HS256)
+                .subject(correo)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + 86400000))
+                .signWith(getSignKey())
                 .compact();
     }
 
